@@ -4,7 +4,7 @@ import { FaPlus, FaSearch, FaFilter, FaTrash, FaEdit, FaSpinner, FaCheckCircle }
 import axios from 'axios'
 import './App.css'
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api/tasks'
+const API_URL = import.meta.env.VITE_API_URL || 'https://task-tracker-faer.onrender.com/api/tasks'
 const initialForm = {
   title: '',
   description: '',
