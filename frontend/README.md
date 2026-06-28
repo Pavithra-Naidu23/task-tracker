@@ -14,3 +14,11 @@ The React Compiler is not enabled on this template because of its impact on dev 
 ## Expanding the ESLint configuration
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+## Deployment
+
+For production, set `VITE_API_URL` to your backend endpoint. Example:
+
+- `VITE_API_URL=https://task-tracker-faer.onrender.com/api/tasks`
+
+On Vercel, configure this as an Environment Variable under your project settings rather than committing a live URL to source control. Also ensure the `frontend` folder is used as the Vercel root for the React app.
