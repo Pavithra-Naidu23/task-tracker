@@ -107,10 +107,12 @@ function App() {
   const counts = useMemo(() => {
     const completed = tasks.filter((task) => task.status === 'Completed').length
     const pending = tasks.filter((task) => task.status === 'Pending').length
+    const highPriority = tasks.filter((task) => task.priority === 'High').length
     return {
       total: tasks.length,
       completed,
-      pending
+      pending,
+      highPriority
     }
   }, [tasks])
 
@@ -118,22 +120,38 @@ function App() {
     <div className="app-shell">
       <ToastContainer position="top-right" autoClose={2500} />
       <header className="hero">
-        <div>
-          <p className="eyebrow">MERN Task Tracker</p>
-          <h1>Organize your tasks with confidence</h1>
-          <p className="hero-text">Create, update, search, and manage tasks without refreshing the page.</p>
+        <div className="hero-copy">
+          <p className="eyebrow">Internship-ready dashboard</p>
+          <h1>Task Tracker</h1>
+          <p className="hero-text">Create, update, search, and manage tasks in one polished workspace.</p>
         </div>
-        <div className="hero-pill">
-          <FaCheckCircle />
-          <span>{counts.total} total tasks</span>
+        <div className="hero-stats">
+          <div className="hero-pill">
+            <FaCheckCircle />
+            <span>{counts.total} total tasks</span>
+          </div>
+          <div className="stats-grid compact">
+            <div className="stat-card">
+              <strong>{counts.pending}</strong>
+              <span>Pending</span>
+            </div>
+            <div className="stat-card">
+              <strong>{counts.completed}</strong>
+              <span>Completed</span>
+            </div>
+            <div className="stat-card">
+              <strong>{counts.highPriority}</strong>
+              <span>High Priority</span>
+            </div>
+          </div>
         </div>
       </header>
 
-      <main className="dashboard">
+      <main className="dashboard-grid">
         <section className="panel form-panel">
           <div className="panel-title">
             <h2>{editingId ? 'Edit Task' : 'Create Task'}</h2>
-            <p>Use the form to save task details and deadlines.</p>
+            <p>Capture every detail clearly and keep deadlines visible.</p>
           </div>
           <form className="task-form" onSubmit={handleSubmit}>
             <label>
@@ -195,22 +213,7 @@ function App() {
         <section className="panel list-panel">
           <div className="panel-title">
             <h2>Task List</h2>
-            <p>Filter and manage tasks quickly.</p>
-          </div>
-
-          <div className="stats-grid">
-            <div className="stat-card">
-              <strong>{counts.total}</strong>
-              <span>Total</span>
-            </div>
-            <div className="stat-card">
-              <strong>{counts.pending}</strong>
-              <span>Pending</span>
-            </div>
-            <div className="stat-card">
-              <strong>{counts.completed}</strong>
-              <span>Completed</span>
-            </div>
+            <p>Browse, filter, and organize your work quickly.</p>
           </div>
 
           <div className="toolbar">
@@ -264,7 +267,7 @@ function App() {
             <div className="task-list">
               {tasks.map((task) => (
                 <article key={task._id} className="task-card">
-                  <div>
+                  <div className="task-card-main">
                     <div className="task-meta">
                       <span className={`status-badge ${task.status.toLowerCase().replace(/\s+/g, '-')}`}>{task.status}</span>
                       <span className={`priority-badge ${task.priority.toLowerCase()}`}>{task.priority}</span>
@@ -278,10 +281,10 @@ function App() {
                   </div>
                   <div className="actions">
                     <button onClick={() => handleEdit(task)} title="Edit task">
-                      <FaEdit />
+                      <FaEdit /> Edit
                     </button>
                     <button onClick={() => setDeleteTarget(task._id)} className="danger" title="Delete task">
-                      <FaTrash />
+                      <FaTrash /> Delete
                     </button>
                   </div>
                 </article>
